@@ -1,0 +1,7 @@
+# Dependencies
+/client/node_modules
+/client/build
+/client/.env
+/client/.*
+/api/vendor/firebase
+*.log

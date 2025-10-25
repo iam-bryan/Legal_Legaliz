@@ -1,0 +1,19 @@
+# Allow cross-origin requests (Keep this from before)
+Header set Access-Control-Allow-Origin "http://localhost:3000"
+Header set Access-Control-Allow-Methods "GET, POST, PUT, DELETE, OPTIONS"
+Header set Access-Control-Allow-Headers "Content-Type, Authorization"
+Header set Access-Control-Allow-Credentials "true"
+Header set Access-Control-Max-Age 86400
+
+# Apache module for URL rewriting (Enable it)
+RewriteEngine On
+
+# ** THIS IS THE IMPORTANT FIX **
+# Pass the Authorization header correctly to PHP
+RewriteCond %{HTTP:Authorization} ^(.*)
+RewriteRule .* - [e=HTTP_AUTHORIZATION:%1]
+
+# Optional: If you want cleaner URLs later (e.g., /api/cases instead of /api/cases/read.php)
+# RewriteCond %{REQUEST_FILENAME} !-f
+# RewriteCond %{REQUEST_FILENAME} !-d
+# RewriteRule ^ index.php [L]
